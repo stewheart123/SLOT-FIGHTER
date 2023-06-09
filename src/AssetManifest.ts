@@ -6,7 +6,7 @@ export const manifest:ResolverManifest = {
             name : "loadingImage",
             assets:
             {
-                "loading image" : "load-image.jpg",
+                "loading image" : "clampy.png",
             }
         },
         {

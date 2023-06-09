@@ -36,7 +36,7 @@ export class AssetLoader {
 
 
     async makeLoadScreen() : Promise<any> {
-        this.loadedScreenAssets = await Assets.loadBundle("load-screen");
+        await Assets.loadBundle("load-screen");
         return new Promise<any>((resolve) => {
             const loadingContainer = new Container();
             // get the assets from the load screen bundle.
@@ -56,7 +56,6 @@ export class AssetLoader {
           //   );
             loadingContainer.addChild(imageWhileYouWait);
             resolve(loadingContainer);
-
         });
     }
     
