@@ -1,23 +1,23 @@
-// import { Application } from 'pixi.js';
+import { Bootstrapper } from "./bootstrapper/Bootstrapper";
+import { Application } from 'pixi.js';
+
+import  appProps  from "./models/App";
 // import {LoaderScene} from "./loaderScene";
 
 // const loaderScene = new LoaderScene(window.innerWidth, window.innerHeight );
+//sets instance of an app to an object property, not a class - this is so we can reference the same value everywhere,
+//just import the object 'app' and  addChild to it anywhere!
+appProps.theApp = new Application({
+	view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
+	resolution: window.devicePixelRatio || 1,
+	autoDensity: true,
+	backgroundColor: 0x000000,
+	width: 1056,
+	height: 609
+});
 
-// const app = new Application({
-// 	view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
-// 	resolution: window.devicePixelRatio || 1,
-// 	autoDensity: true,
-// 	backgroundColor: 0x000000,
-// 	width: window.innerWidth,
-// 	height: window.innerHeight
-// });
+const bootstrapper = new Bootstrapper();
+bootstrapper.start();
 
-
-// app.stage.addChild(loaderScene);
-// app.stage.addChild(loaderScene.aSprite);
-
-import { FirstState } from "./states/firstState";
-console.log('in first state');
-const firstState = new FirstState();
-
-firstState.startSequence();
+//this could be similar to sequencer, runs through all the states in a loop?
+// or maybe its just called from the steps in each sequence and the state changer?

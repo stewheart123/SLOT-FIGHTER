@@ -1,15 +1,15 @@
 import { ISequence } from "./ISequence";
 import { Step } from "../steps/Step";
-//import { StepOne } from "../steps/StepOne";
+import { StepOne } from "../steps/StepOne";
 import { Signal } from "signals";
 
 export class FirstSequence implements ISequence {
   step = new Step();
-  //stepOne = new StepOne();
+  stepOne = new StepOne();
 
   steps: Step[] = [
     this.step,
-    // this.stepOne
+     this.stepOne
   ];
 
   sequenceSignal: Signal<any> = new Signal();

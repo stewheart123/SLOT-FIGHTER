@@ -5,6 +5,11 @@
 
 import { FirstState } from "../states/firstState";
 
-const firstState = new FirstState();
 
-firstState.startSequence();
+export class Bootstrapper {
+ firstState = new FirstState();
+ public start() : void {
+ this.firstState.startSequence();
+
+ }
+}
