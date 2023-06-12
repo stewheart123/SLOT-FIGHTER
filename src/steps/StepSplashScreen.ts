@@ -8,7 +8,6 @@ export class StepSplashScreen implements IStep {
   public isComplete = false;
 
   public start(signal: Signal<any>): void {
-    
     const splashContainer = new Container();
     const aSprite = Sprite.from("foregroundImage");
     aSprite.width = appProps.theApp.screen.width;
@@ -39,6 +38,37 @@ export class StepSplashScreen implements IStep {
     // Set the anchor of the text to center
     buttonText.anchor.set(0.5);
 
+    const titleContainer = new Container();
+    const titleSlotBackground = new Graphics();
+
+    titleSlotBackground.beginFill(0x000000, 1);
+    titleSlotBackground.drawRect(0, 0, 210, 88);
+    titleSlotBackground.endFill();
+
+    const titleSlot = new Text("SLOT", {
+      fontFamily: "Tourney",
+      fontSize: 80,
+      fill: 0xffffff,
+    });
+    const titleFighter = new Text("FIGHTER", {
+      fontFamily: "Permanent Marker",
+      fontSize: 80,
+      fill: 0xff5c00,
+      dropShadow: true,
+      dropShadowColor: "#000000",
+      dropShadowBlur: 4,
+    });
+    titleSlot.position.x = 10;
+    titleFighter.position.set( titleFighter.width / 1.85, -10);
+    titleSlotBackground.addChild(titleSlot);
+    titleContainer.addChild(titleSlotBackground);
+    titleContainer.addChild(titleFighter);
+    titleContainer.pivot.set(1, 1);
+    titleContainer.position.set(
+      appProps.theApp.screen.width / 2 - titleSlotBackground.width,
+      appProps.theApp.screen.height / 2 - titleSlotBackground.height / 8
+    );
+
     // Calculate the center position within the container
     buttonText.x = buttonContainer.width / 2;
     buttonText.y = buttonContainer.height / 2;
@@ -57,6 +87,7 @@ export class StepSplashScreen implements IStep {
     creditsText.x = appProps.theApp.screen.width;
     creditsText.y = 0;
 
+    splashContainer.addChild(titleContainer);
     splashContainer.addChild(buttonContainer);
     splashContainer.addChild(creditsText);
     appProps.theApp.stage.addChild(splashContainer);
