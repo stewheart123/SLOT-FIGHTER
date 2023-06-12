@@ -1,21 +1,18 @@
 import { ISequence } from "./ISequence";
-import { Step } from "../steps/Step";
-import { StepOne } from "../steps/StepOne";
 import { Signal } from "signals";
-import stateChanger from "../stateChanger/stateChanger";
-export class FirstSequence implements ISequence {
-  step = new Step();
-  stepOne = new StepOne();
+import { LoadScreenStep } from "../steps/loadScreenStep";
+import { Step } from "../steps/Step";
+
+export class LoadingScreenSequence implements ISequence {
+  loadScreenStep = new LoadScreenStep();
 
   steps: Step[] = [
-    this.step,
-     this.stepOne
+    this.loadScreenStep,
   ];
 
   sequenceSignal: Signal<any> = new Signal();
 
   initialiseSequence(): void {
-    console.log('initialise seq');
     this.sequenceSignal.add(() => {
         this.startSequence();
     });
@@ -25,7 +22,7 @@ export class FirstSequence implements ISequence {
 
 
   startSequence(): void {
-    console.log('start first sequence');
+    console.log('start seq');
     for (let x = 0; x < this.steps.length; x++) {
       if (this.steps[x].isComplete === false) {
         this.steps[x].start(this.sequenceSignal);
@@ -35,6 +32,6 @@ export class FirstSequence implements ISequence {
     this.stateChange();
   }
   stateChange(): void {
-    stateChanger.stateChange("loadingScreenState");
+    console.log("END OF SEQUENCE");
   }
 }

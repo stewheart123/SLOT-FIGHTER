@@ -12,16 +12,21 @@ import stateChanger from "../stateChanger/stateChanger";
 
  */
 
-import { FirstState } from "../states/firstState";
+// import { FirstState } from "../states/firstState";
+import { LoadingScreenState } from "../states/loadingScreenState";
 
 export class Bootstrapper {
   //instantiate more states here as we make them
-  firstState = new FirstState();
+  // firstState = new FirstState();
+  loadingScreenState = new LoadingScreenState();
 
   public start(): void {
     //add the state instance startSequence method the the state changer object here
-    stateChanger.firstState = this.firstState.startSequence();
-
+    // stateChanger.firstState = this.firstState.startSequence.bind(this.firstState.startSequence);
+    // // stateChanger.firstState = this.firstState.startSequence.bind(this.firstState.startSequence);
+    // stateChanger.loadingScreenState = this.loadingScreenState.startSequence.bind(this.loadingScreenState.startSequence);
+   // console.group('after loading state set');
     stateChanger.stateChange("firstState");
+   //stateChanger.stateChange("loadingScreenState");
   }
 }

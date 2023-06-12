@@ -2,7 +2,6 @@ import { Container, Sprite, Assets } from 'pixi.js';
 
 export class AssetLoader {
   
-    
     loadedScreenAssets : null | any = null;
     
     async assetsAndLoadingScreen() {

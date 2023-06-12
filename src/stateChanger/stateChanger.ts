@@ -1,15 +1,23 @@
+import { FirstState } from "../states/firstState";
+import { LoadingScreenState } from "../states/loadingScreenState";
+
+const firstState = new FirstState();
+const loadingScreenState = new LoadingScreenState();
 const stateChanger = {
     stateChange: changeTheState.bind(this),
-    firstState : undefined as undefined | void 
   };
 
   function changeTheState(stateId: string) {
     switch (stateId) {
       case "firstState":
-        stateChanger;
+        firstState.startSequence();
         break;
+        case "loadingScreenState":
+          loadingScreenState.startSequence();
+          break;
       default:
         //
+        console.log('default reached');
         break;
     }
   }
