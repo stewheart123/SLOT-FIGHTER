@@ -17,7 +17,7 @@ export class LoadScreenStep extends Step {
       }
     const loadingContainer = new Container();
      // lets make a loader graphic:
-    const loaderBarWidth = appProps.theApp.screen.width * 0.25; // just an auxiliar variable
+    const loaderBarWidth = appProps.theApp.screen.width ; // just an auxiliar variable
 
     // the fill of the bar.
     this.loaderBarFill.beginFill(0xff7a00, 1);
@@ -36,12 +36,12 @@ export class LoadScreenStep extends Step {
     loaderBar.addChild(this.loaderBarFill);
     loaderBar.addChild(loaderBarProgress);
     //Looks complex but this just centers the bar on screen.
-    loaderBar.position.x = appProps.theApp.screen.width / 2;
-    console.log('----------------------------------');
-    console.log(appProps.theApp.screen.width);
-    loaderBar.position.y =
+    //loaderBar.position.x = appProps.theApp.screen.width / 2;
+    //loadingContainer.pivot.set(0.5, 0.5);
+    loadingContainer.position.x = (appProps.theApp.screen.width / 2) -( loaderBarWidth / 2);
+    loadingContainer.position.y =
       (appProps.theApp.screen.height - loaderBar.height) / 2;
-    loaderBar.pivot.set(0.5);
+    //loaderBar.pivot.set(0.5);
       loadingContainer.addChild(loaderBar);
       loadingContainer.addChild(this.loaderBarFill);
     appProps.theApp.stage.addChild(loadingContainer);
@@ -54,11 +54,12 @@ export class LoadScreenStep extends Step {
         //this.gameLoaded();
         
         this.isComplete = true;
-        signal.dispatch();
         if (liveComponents.loadScreen) {
             liveComponents.loadScreen.destroy();
             liveComponents.loadScreen = undefined;
         }
+        signal.dispatch();
+       
     });
   }
   private async initializeLoader(): Promise<void> {

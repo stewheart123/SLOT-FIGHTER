@@ -11,7 +11,7 @@ appProps.theApp = new Application({
 	view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
 	resolution: window.devicePixelRatio || 1,
 	autoDensity: true,
-	backgroundColor: 0x000000,
+	backgroundColor: 0xff00ff,
 	width: 1056,
 	height: 609
 });

@@ -1,3 +1,6 @@
+/**
+ * Just a test sequence
+ */
 import { ISequence } from "./ISequence";
 import { Step } from "../steps/Step";
 import { StepOne } from "../steps/StepOne";
@@ -19,13 +22,11 @@ export class FirstSequence implements ISequence {
     this.sequenceSignal.add(() => {
         this.startSequence();
     });
-   // console.log(this.sequenceSignal);
     this.startSequence();
   }
 
 
   startSequence(): void {
-    console.log('start first sequence');
     for (let x = 0; x < this.steps.length; x++) {
       if (this.steps[x].isComplete === false) {
         this.steps[x].start(this.sequenceSignal);

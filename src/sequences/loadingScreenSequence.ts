@@ -2,6 +2,7 @@ import { ISequence } from "./ISequence";
 import { Signal } from "signals";
 import { LoadScreenStep } from "../steps/loadScreenStep";
 import { Step } from "../steps/Step";
+import stateChanger from "../stateChanger/stateChanger";
 
 export class LoadingScreenSequence implements ISequence {
   loadScreenStep = new LoadScreenStep();
@@ -16,13 +17,11 @@ export class LoadingScreenSequence implements ISequence {
     this.sequenceSignal.add(() => {
         this.startSequence();
     });
-   // console.log(this.sequenceSignal);
     this.startSequence();
   }
 
 
   startSequence(): void {
-    console.log('start seq');
     for (let x = 0; x < this.steps.length; x++) {
       if (this.steps[x].isComplete === false) {
         this.steps[x].start(this.sequenceSignal);
@@ -32,6 +31,6 @@ export class LoadingScreenSequence implements ISequence {
     this.stateChange();
   }
   stateChange(): void {
-    console.log("END OF SEQUENCE");
+    stateChanger.stateChange("splashScreenState");
   }
 }
