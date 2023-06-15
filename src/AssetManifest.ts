@@ -17,5 +17,13 @@ export const manifest:ResolverManifest = {
                 "backgroundImage": 'slot-fighter-background-dynamic.jpg',
             }
         },
+        {
+            name : "game-screen",
+            assets:
+            {
+                "fighterAnimation" : 'mai-sprites.json',
+                "fighterSprites" : 'mai-sprites.png'
+            }
+        }
     ]
 }

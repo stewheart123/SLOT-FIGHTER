@@ -9,26 +9,44 @@ export class StepSplashScreen implements IStep {
 
   public start(signal: Signal<any>): void {
     const splashContainer = new Container();
-    const aSprite = Sprite.from("foregroundImage");
-    aSprite.width = appProps.theApp.screen.width;
-    aSprite.height = appProps.theApp.screen.height;
+    const foregroundFighter = Sprite.from("foregroundImage");
+    foregroundFighter.width = appProps.theApp.screen.width;
+    foregroundFighter.height = appProps.theApp.screen.height;
     const backgroundImage = Sprite.from("backgroundImage");
     backgroundImage.width = appProps.theApp.screen.width;
     backgroundImage.height = appProps.theApp.screen.width;
     splashContainer.addChild(backgroundImage);
-    splashContainer.addChild(aSprite);
+    splashContainer.addChild(foregroundFighter);
+
+    // foreground animation
+    const startY = foregroundFighter.y;
+    const amplitude = 2;
+    const frequency = 0.05;
+    let time = 0;
+    let animationOn = true;
+    // Animation loop
+    appProps.theApp.ticker.add(() => {
+      if (animationOn) {
+        time += appProps.theApp.ticker.deltaTime;
+        // Calculate the new Y position based on the time and amplitude
+        const newY = startY + Math.sin(time * frequency) * amplitude;
+        foregroundFighter.y = newY;
+      }
+    });
 
     const buttonContainer = new Container();
     const insertCoinButton = new Graphics();
-    insertCoinButton.lineStyle(6, 0x000000, 6);
+    insertCoinButton.lineStyle(4, 0x000000, 6);
     insertCoinButton.beginFill(0xff7a00, 1);
-    insertCoinButton.drawRect(0, 0, 300, 100);
+    insertCoinButton.drawRect(0, 0, 250, 50);
     insertCoinButton.endFill();
     insertCoinButton.interactive = true;
+    insertCoinButton.cursor = "pointer";
+    insertCoinButton.on("pointerdown", insertCoin);
 
     buttonContainer.addChild(insertCoinButton);
 
-    buttonContainer.x = appProps.theApp.screen.width / 2 - 150;
+    buttonContainer.x = appProps.theApp.screen.width / 2 - 125;
     buttonContainer.y = appProps.theApp.screen.height / 1.5;
     const buttonText = new Text("INSERT COIN", {
       fontFamily: "Bayon",
@@ -59,7 +77,7 @@ export class StepSplashScreen implements IStep {
       dropShadowBlur: 4,
     });
     titleSlot.position.x = 10;
-    titleFighter.position.set( titleFighter.width / 1.85, -10);
+    titleFighter.position.set(titleFighter.width / 1.85, -10);
     titleSlotBackground.addChild(titleSlot);
     titleContainer.addChild(titleSlotBackground);
     titleContainer.addChild(titleFighter);
@@ -69,11 +87,25 @@ export class StepSplashScreen implements IStep {
       appProps.theApp.screen.height / 2 - titleSlotBackground.height / 8
     );
 
-    // Calculate the center position within the container
     buttonText.x = buttonContainer.width / 2;
     buttonText.y = buttonContainer.height / 2;
 
     insertCoinButton.addChild(buttonText);
+    insertCoinButton.visible = false;
+    const flashDuration = 50;
+    let isObjectVisible = false;
+    let elapsedTime = 0;
+    // Flashing animation loop for button
+    appProps.theApp.ticker.add((delta) => {
+      if (animationOn) {
+        elapsedTime += delta;
+        if (elapsedTime >= flashDuration) {
+          isObjectVisible = !isObjectVisible;
+          insertCoinButton.visible = isObjectVisible;
+          elapsedTime = 0;
+        }
+      }
+    });
 
     const creditsText = new Text("CREDITS 00", {
       fontFamily: "Bayon",
@@ -90,8 +122,36 @@ export class StepSplashScreen implements IStep {
     splashContainer.addChild(titleContainer);
     splashContainer.addChild(buttonContainer);
     splashContainer.addChild(creditsText);
+
+    //animation test
+
+   
+    let texture = Sprite.from("fighterSprites");
+    console.log(texture);
+    
+    // const img = new AnimatedSprite(texture.animations.tile);
+    // img.anchor.x = 0.5;
+    // img.anchor.y = 0.5;
+    // img.scale.set(2,2);
+    // splashContainer.addChild(img);
+
+    // img.animationSpeed = 0.1;
+    // img.play();
+
+    // img.onLoop = () => {
+    //     console.log('loop');
+    // }
+
+  
+    //end of test
     appProps.theApp.stage.addChild(splashContainer);
     liveComponents.splashScreen = splashContainer;
+    function insertCoin() {
+      console.log("coin inserted");
+      animationOn = false;
+      insertCoinButton.visible = true;
+      creditsText.text = "CREDITS 01";
+    }
 
     //place the dispatch inside a button event
     this.isComplete = true;
