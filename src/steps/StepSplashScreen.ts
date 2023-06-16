@@ -1,13 +1,13 @@
 import { IStep } from "./IStep";
 import { Signal } from "signals";
-import { Sprite, Container, Graphics, Text } from "pixi.js";
+import { Sprite, Container, Graphics, Text, AnimatedSprite, Assets } from "pixi.js";
 import appProps from "../models/App";
 import liveComponents from "../models/LiveComponents";
 
 export class StepSplashScreen implements IStep {
   public isComplete = false;
 
-  public start(signal: Signal<any>): void {
+  public async start(signal: Signal<any>): Promise<void> {
     const splashContainer = new Container();
     const foregroundFighter = Sprite.from("foregroundImage");
     foregroundFighter.width = appProps.theApp.screen.width;
@@ -124,26 +124,20 @@ export class StepSplashScreen implements IStep {
     splashContainer.addChild(creditsText);
 
     //animation test
-
-   
-    let texture = Sprite.from("fighterSprites");
-    console.log(texture);
+    const sheet = await Assets.load('fighterAnimation');
+    const animatedSprite = new AnimatedSprite(sheet.animations['tile']);
+    animatedSprite.width = 200;
+    animatedSprite.height = 200;
+    animatedSprite.position.set( animatedSprite.width, animatedSprite.height);
+    animatedSprite.anchor.set(0.5, 0.5);
+    animatedSprite.scale.set(2);
+    animatedSprite.loop = true;
+    animatedSprite.animationSpeed = 0.1;
+    animatedSprite.play();
+    splashContainer.addChild(animatedSprite);
     
-    // const img = new AnimatedSprite(texture.animations.tile);
-    // img.anchor.x = 0.5;
-    // img.anchor.y = 0.5;
-    // img.scale.set(2,2);
-    // splashContainer.addChild(img);
+    //end of test - move to new state / sequence
 
-    // img.animationSpeed = 0.1;
-    // img.play();
-
-    // img.onLoop = () => {
-    //     console.log('loop');
-    // }
-
-  
-    //end of test
     appProps.theApp.stage.addChild(splashContainer);
     liveComponents.splashScreen = splashContainer;
     function insertCoin() {

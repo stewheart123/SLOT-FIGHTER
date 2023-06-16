@@ -22,7 +22,20 @@ export const manifest:ResolverManifest = {
             assets:
             {
                 "fighterAnimation" : 'mai-sprites.json',
-                "fighterSprites" : 'mai-sprites.png'
+                "fighterSprites" : 'mai-sprites.png',
+                "stageOneBackground" : 'stage-1-background.jpg',
+                "symbolH": 'symbol-H.jpg',
+                "symbolJ": 'symbol-J.jpg',
+                "symbolK": 'symbol-K.jpg',
+                "symbolKE": 'symbol-KE.jpg',
+                "symbolL": 'symbol-L.jpg',
+                "symbolO": 'symbol-O.jpg',
+                "symbolR": 'symbol-R.jpg',
+                "symbolRT": 'symbol-RT.jpg',
+                "symbolS": 'symbol-S.jpg',
+                "symbolST": 'symbol-ST.jpg',
+                "symbolT": 'symbol-T.jpg',
+                "symbolW": 'symbol-W.jpg',
             }
         }
     ]

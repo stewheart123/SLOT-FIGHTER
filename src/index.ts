@@ -6,7 +6,7 @@ import  appProps  from "./models/App";
 
 // const loaderScene = new LoaderScene(window.innerWidth, window.innerHeight );
 //sets instance of an app to an object property, not a class - this is so we can reference the same value everywhere,
-//just import the object 'app' and  addChild to it anywhere!
+//just import the object 'app' and  addChild to it anywhere! 
 appProps.theApp = new Application({
 	view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
 	resolution: window.devicePixelRatio || 1,
