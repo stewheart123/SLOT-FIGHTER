@@ -7,6 +7,11 @@ import liveComponents from "../models/LiveComponents";
 export class StepSplashScreen implements IStep {
   public isComplete = false;
 
+  private completeStep(signal: Signal<any>) {
+    this.isComplete = true;
+    signal.dispatch();
+  }
+
   public async start(signal: Signal<any>): Promise<void> {
     const splashContainer = new Container();
     const foregroundFighter = Sprite.from("foregroundImage");
@@ -42,7 +47,13 @@ export class StepSplashScreen implements IStep {
     insertCoinButton.endFill();
     insertCoinButton.interactive = true;
     insertCoinButton.cursor = "pointer";
-    insertCoinButton.on("pointerdown", insertCoin);
+    insertCoinButton.on("pointerdown", () => {
+      console.log("coin inserted");
+      animationOn = false;
+      insertCoinButton.visible = true;
+      creditsText.text = "CREDITS 01";
+      this.completeStep(signal);
+    });
 
     buttonContainer.addChild(insertCoinButton);
 
@@ -140,15 +151,10 @@ export class StepSplashScreen implements IStep {
 
     appProps.theApp.stage.addChild(splashContainer);
     liveComponents.splashScreen = splashContainer;
-    function insertCoin() {
-      console.log("coin inserted");
-      animationOn = false;
-      insertCoinButton.visible = true;
-      creditsText.text = "CREDITS 01";
-    }
-
+  
     //place the dispatch inside a button event
-    this.isComplete = true;
-    signal.dispatch();
+    //this.isComplete = true;
   }
 }
+
+
